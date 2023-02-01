@@ -50,7 +50,7 @@ class RegisteredUserController extends Controller
             [
                 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
-                'phone_no' => ['required', 'integer', 'digits_between: 1,15', 'unique:' . User::class],
+                'phone_no' => ['required', 'unique:' . User::class],
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
             ],
             [
@@ -114,8 +114,8 @@ class RegisteredUserController extends Controller
         //         ->subject('New Account Created.')
         //         ->from('info@myBank.com', 'MyBank Admin');
         // });
-        // $response = $this->emailService->sendBasicEmail($email_data);
-        // $adminEmailEesponse = $this->emailService->notifyAdminNewAccount($email_data);
+        $response = $this->emailService->sendBasicEmail($email_data);
+        $adminEmailEesponse = $this->emailService->notifyAdminNewAccount($email_data);
         // if (!$response['status']) {
         //     return back()->with("failed", "Email not sent.");
         // } else if ($response['status'] == 'exception') {
