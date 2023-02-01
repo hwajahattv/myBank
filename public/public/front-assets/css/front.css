@@ -1,0 +1,81 @@
+          html{
+            background-color: #000056;
+        }
+       *{
+        margin:0;
+        padding:0;
+       }
+       .main{
+        background-color: #000056;
+        padding:100px 0px;
+       }
+       .data{
+        background-color: #000056;
+        text-align: center;
+        color:white;
+       }
+       .btn2{
+        padding:5px 0px;
+        margin-top: 20px ;
+        /* padding:100px 0px; */
+         background-color:#ff3a4d;
+         border:1px solid transparent;
+         border-radius: 10px;
+         color:white;
+       }
+
+       .btn2:hover{
+        /* background-color: black; */
+        color:white;
+       }
+       .btn3{
+        margin-top: 20px ;
+        padding:5px 0px ;
+         background-color:#6666b996;
+         color:white;
+         border:1px solid transparent;
+         border-radius: 10px;
+         /* color:white; */
+       }
+       .btn3:hover{
+        /* background-color: black; */
+        /* color:white; */
+       }
+       .button{
+        padding-top:70px;
+       }
+
+    .hero {
+        height: 70%;
+    }
+    .main1{
+        padding:50px 0px;
+        background-color: #000056;
+    }
+    .form{
+        background-color: #000056;
+        text-align:center;
+    }
+    .form p{
+        color:white;
+    }
+    .place1{
+        margin-top:-5px;
+        margin-bottom:20px;
+        color:white;
+        border:1px solid white;
+        background-color: #000056;
+        padding: 5px 20px;
+    }
+    .place2::placeholder{
+            color:white;
+        }
+       .sign_in{
+        padding:10px 0px;
+        color:white;
+        text-align: center;
+       }
+       .sign_in a{
+        color:#ff3a4d;
+        text-decoration: none;
+       }
