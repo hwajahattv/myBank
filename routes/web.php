@@ -4,12 +4,14 @@
 use App\Http\Controllers\admin\AccountController;
 use App\Http\Controllers\admin\TransactionController;
 use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\admin\InvestmentSectionController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\client\AuthController;
 use App\Http\Controllers\client\HomeController;
+use App\Http\Controllers\client\InvestmentController;
 use App\Http\Controllers\client\RequestController;
 use App\Http\Controllers\client\UtilityPayController;
 use App\Http\Controllers\PaymentController;
@@ -66,6 +68,8 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
     Route::get('/home', [AdminController::class, 'index'])->name('home');
     Route::resource('account', AccountController::class);
     Route::resource('user', UserController::class);
+    Route::post('/change/role/{id}', [UserController::class, 'updateRole']);
+    Route::resource('investment', InvestmentSectionController::class)->only(['index']);
     // Route::get('/user/delete/{id}', UserController::class, 'destroy')
     //     ->name('user.delete');
     Route::resource('transaction', TransactionController::class);
@@ -76,12 +80,16 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
 // Client routes
 Route::get('/client/auth', [AuthController::class, 'auth'])->name('client.auth');
 Route::get('/client/login', [AuthController::class, 'login'])->name('client.login');
+Route::get('/client/password-change', [AuthController::class, 'changePassword'])->name('client.password.change');
+Route::post('/change-password', [AuthController::class, 'changePasswordSave'])->name('postChangePassword');
 Route::get('/client/register', [AuthController::class, 'register'])->name('client.register');
 Route::post('/client/register/post', [RegisteredUserController::class, 'store'])->name('client.register.post');
 Route::post('/client/login', [AuthenticatedSessionController::class, 'store'])->name('client.login.store')->middleware(ClientAuthenticate::class);
 Route::get('/forgot-password', [PasswordResetLinkController::class, 'create']);
 Route::post('/forgot-password/newLink', [PasswordResetLinkController::class, 'sendResetLink'])->name('password.email.send');
-Route::post('/reset-password/new/{token}', [NewPasswordController::class, 'create1']);
+// Route::post('/reset-password/{token}', [NewPasswordController::class, 'create']);
+
+
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/client/dashboard', [AuthController::class, 'dashboard'])->name('client.dashboard');
@@ -123,8 +131,16 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/get/bill', [UtilityPayController::class, 'getData'])->name('utility.data');
     Route::post('/utility/pay', [UtilityPayController::class, 'makePayment'])->name('utility.payment');
 
+
+    //investment routes
+    Route::get('client/invest/index', [InvestmentController::class, 'index'])->name('client.invest.index');
+    Route::get('client/invest/show/{id}', [InvestmentController::class, 'show'])->name('client.invest.show');
     // misc routes on client side
     Route::get('/client/policy', [HomeController::class, 'policy'])->name('client.policy');
+    Route::get('/client/portfolio', [HomeController::class, 'portfolio'])->name('client.portfolio');
+    Route::get('/client/account', [HomeController::class, 'account'])->name('client.account');
+    Route::get('/client/reward', [HomeController::class, 'reward'])->name('client.reward');
+    Route::get('/client/save', [HomeController::class, 'save'])->name('client.save');
     Route::get('/client/notifications/{days}', [HomeController::class, 'notifications'])->name('client.notifications');
 });
 

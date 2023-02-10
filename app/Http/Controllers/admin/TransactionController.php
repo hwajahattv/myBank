@@ -119,5 +119,4 @@ class TransactionController extends Controller
 
         return view('admin.transactions.show', ['transaction' => $transaction]);
     }
-
 }

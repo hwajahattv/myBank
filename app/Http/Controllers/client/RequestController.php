@@ -50,7 +50,7 @@ class RequestController extends Controller
 
         Alert::success('Successfull!', 'Request made successfully.');
         $credit = Account::where(['user_id' => Auth::user()->id])->first()->credit;
-        return redirect()->route('client.dashboard')->with(['credit' => $credit]);
+        return redirect()->route('client.dashboard')->with(['credit' => $credit, 'message' => 'Money request sent successfully!']);
     }
     public function received()
     {

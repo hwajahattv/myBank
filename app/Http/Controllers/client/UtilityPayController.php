@@ -53,10 +53,10 @@ class UtilityPayController extends Controller
         $response = $this->transactionService->make($data, 5);
         if ($response['status'] == 'failed') {
             Alert::success('Failed!', $response['message']);
-        } else {
-            Alert::success('Successfull!', 'Money transferred successfully.');
+            $credit = Account::where(['user_id' => Auth::user()->id])->first()->credit;
+            return redirect()->route('client.dashboard')->with(['credit' => $credit, 'error' => $response['message']]);
         }
         $credit = Account::where(['user_id' => Auth::user()->id])->first()->credit;
-        return redirect()->route('client.dashboard')->with(['credit' => $credit]);
+        return redirect()->route('client.dashboard')->with(['credit' => $credit, 'message' => 'Utility Bill paid successfully.']);
     }
 }

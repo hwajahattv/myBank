@@ -52,6 +52,6 @@ class MakeTransaction
             $trans->faccount_id = $facc->id;
             $trans->save();
         }
-        return $msg = ['status' => 'sucess', 'message' => 'Made transaction.'];
+        return $msg = ['status' => 'success', 'message' => 'Made transaction.'];
     }
 }

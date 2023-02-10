@@ -146,6 +146,162 @@
         border-radius: 30px 30px 0px 0px;
     }
 
+    html {
+        background-color: #000056;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .main {
+        padding: 20px 0px;
+        background-color: #000056;
+    }
+
+    .main a {
+        text-decoration: none;
+        color: white;
+        padding: 20px;
+        font-size: 20px;
+
+    }
+
+    .hero {
+        /* padding:20px 0px; */
+        background-color: #000056;
+
+    }
+
+    .content {
+        color: white;
+    }
+
+    .content a {
+        color: #ff0052;
+        text-decoration: none;
+    }
+
+    .buttons {
+        padding: 5px 0px;
+        /* background-color: #3f3fa1; */
+    }
+
+    .search {
+
+        /* width:100% */
+        padding: 10px 50px;
+        border: none;
+        background-color: #3f3fa1;
+
+    }
+
+    .buttons {
+        padding: 10px 0px;
+        float: center center;
+    }
+
+    .buttons ul {
+        padding: 10px 0px;
+        list-style-type: none;
+
+
+    }
+
+    .buttons ul li {
+        display: inline-block;
+
+
+    }
+
+    ::placeholder {
+        color: white;
+    }
+
+    .btn {
+        background-color: #3f3fa1;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        /* padding-left:0px; */
+    }
+
+    .hero1 {
+        background: #000056;
+        padding: 20px 20px;
+    }
+
+
+    .data ul {
+        list-style-type: none;
+
+    }
+
+    .data ul li {
+        display: inline-block;
+    }
+
+
+    .fa-building {
+        color: white;
+        background-color: red;
+        border-radius: 50%;
+        /* font-size: 20px; */
+    }
+
+    .li1 {
+        padding: 5px 10px;
+        background-color: #a14ba5;
+        border-radius: 50%;
+
+
+    }
+
+    .spaan {
+        color: #29d7ff;
+        padding: 0px 50px;
+
+    }
+
+    .li2 {
+        float: right;
+    }
+
+    .data h6 {
+        padding-top: 10px;
+    }
+
+    .btn-primary {
+        background-color: #c4f4ff;
+        color: #29d7ff;
+    }
+
+    .search {
+        /* float:center; */
+        text-align: center;
+
+    }
+
+    ::placeholder {
+        color: lightblue;
+    }
+
+    .real {
+        padding-left: 10px;
+    }
+
+    @media screen and (max-width: 820px) {
+        .data {
+            margin: 5px 7px;
+        }
+
+        .real {
+
+            margin: 5px;
+        }
+    }
+
 </style>
 
 @endsection
@@ -153,83 +309,116 @@
 <section class="main">
     <div class="container">
         <div class="row">
-            <div class="col-lg-1 col-md-6 col-sm-6 col-xs-12">
-                <div class="head">
-                    <a href="{{route('client.profile')}}">
-                        <i class="fa fa-bars" aria-hidden="true"></i>
-                    </a>
-                </div>
-
-            </div>
-            <div class="col-lg-11 col-md-6 col-sm-6 col-xs-12">
-                <div class="head1">
-                    <h2>Hello {{Auth::user()->name}} </h2>
-                    <p>Good morning, remember to save today <i class="fa fa-usd" aria-hidden="true"></i></p>
-
-                </div>
-
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="heading">
-                    <p>Total savings</p>
-                    <h2>$ {{$credit}}</h2>
+            @if(session()->has('message'))
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-success center-block">
+                    {{ session()->get('message') }}
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <a href="{{route('money.add')}}" class="dashboard-button">
-                    <div class="left">
-                        <ul class="left-without_border">
-                            <li><i class="fa fa-credit-card-alt" aria-hidden="true"></i></li>
-                            <li class="money"> Add money</li>
-                        </ul>
-                    </div>
-                </a>
+            @endif
+    @if($errors->any())
+    <div class="d-flex justify-content-center">
+        {!! implode('', $errors->all('<div class="alert alert-danger center-block alert-dismissible fade show">:message</div>')) !!}
 
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <a href="{{route('payment.request')}}" class="dashboard-button">
+    </div>
+    @endif
+    @if(Session::get('error') && Session::get('error') != null)
+    <div class="alert alert-danger alert-dismissible fade show">{{ Session::get('error') }}</div>
+    @php
+    Session::put('error', null)
+    @endphp
+    @endif
+    @if(Session::get('success') && Session::get('success') != null)
+    <div class="alert alert-success alert-dismissible fade show">{{ Session::get('success') }}</div>
 
-                    <div class="left">
-                        <ul class="left-without_border">
+    @php
+    Session::put('success', null)
+    @endphp
+    @endif
 
-                            <li><i class="fa fa-paper-plane" aria-hidden="true"></i></li>
-                            <li class="money">Request Money</li>
 
-                        </ul>
+    <div class="col-lg-1 col-md-6 col-sm-6 col-xs-12">
+        <div class="head">
+            <a href="{{route('client.profile')}}">
+                <i class="fa fa-bars" aria-hidden="true"></i>
+            </a>
+        </div>
 
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <a href="{{route('utility.index')}}" class="dashboard-button">
-                    <div class="left">
-                        <ul class="left-without_border">
-
-                            <li><i class="fa fa-paper-plane" aria-hidden="true"></i></li>
-                            <li class="money">Pay</li>
-
-                        </ul>
-
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <a href="{{route('sendMoney.index')}}" class="dashboard-button">
-                    <div class="left">
-                        <ul class="left-without_border">
-                            <li><i class="fa fa-paper-plane" aria-hidden="true"></i></li>
-                            <li class="money"> Send Money</li>
-
-                        </ul>
-
-                    </div>
-                </a>
-            </div>
-
+    </div>
+    <div class="col-lg-11 col-md-6 col-sm-6 col-xs-12">
+        <div class="head1">
+            <h2>Hello {{Auth::user()->name}} </h2>
+            <p>Good morning, remember to save today <i class="fa fa-usd" aria-hidden="true"></i></p>
 
         </div>
+
     </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="heading">
+            <p>Total savings</p>
+            <h2>$ {{$credit}}</h2>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <a href="{{route('money.add')}}" class="dashboard-button">
+            <div class="left">
+                <ul class="left-without_border">
+                    <li><i class="fa fa-credit-card-alt" aria-hidden="true"></i></li>
+                    <li class="money"> Add money</li>
+                </ul>
+            </div>
+        </a>
+
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <a href="{{route('payment.request')}}" class="dashboard-button">
+
+            <div class="left">
+                <ul class="left-without_border">
+
+                    <li><i class="fa fa-paper-plane" aria-hidden="true"></i></li>
+                    <li class="money">Request Money</li>
+
+                </ul>
+
+            </div>
+        </a>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <a href="{{route('utility.index')}}" class="dashboard-button">
+            <div class="left">
+                <ul class="left-without_border">
+
+                    <li><i class="fa fa-paper-plane" aria-hidden="true"></i></li>
+                    <li class="money">Pay</li>
+
+                </ul>
+
+            </div>
+        </a>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <a href="{{route('sendMoney.index')}}" class="dashboard-button">
+            <div class="left">
+                <ul class="left-without_border">
+                    <li><i class="fa fa-paper-plane" aria-hidden="true"></i></li>
+                    <li class="money"> Send Money</li>
+
+                </ul>
+
+            </div>
+        </a>
+    </div>
+
+
+    </div>
+    </div>
+
+
+
 </section>
+
+
 <section class="hero">
     <div class="container">
         <div class="row">
@@ -239,28 +428,34 @@
                         Get your money working for you
                     </p>
                     <div class="content">
-                        <ul>
-                            <li><i class="fa fa-briefcase" aria-hidden="true"></i></li>
-                            <li>
-                                <p>save for emergency</p>
-                            </li>
-                            <li class="emerg"><i class="fa fa-angle-right" aria-hidden="true"></i></li>
-                        </ul>
+                        <a href="{{route('client.save')}}">
+
+                            <ul>
+                                <li><i class="fa fa-briefcase" aria-hidden="true"></i></li>
+                                <li>
+                                    <p>save for emergency</p>
+                                </li>
+                                <li class="emerg"><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+                            </ul>
+                        </a>
+
                     </div>
 
 
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sm">
+                    <a href="{{route('client.invest.index')}}">
 
-                    <div class="content">
-                        <ul>
-                            <li><i class="fa fa-briefcase" aria-hidden="true"></i></li>
-                            <li>
-                                <p>Invest your money</p>
-                            </li>
-                            <li class="emerg"><i class="fa fa-angle-right" aria-hidden="true"></i></li>
-                        </ul>
-                    </div>
+                        <div class="content">
+                            <ul>
+                                <li><i class="fa fa-briefcase" aria-hidden="true"></i></li>
+                                <li>
+                                    <p>Invest your money</p>
+                                </li>
+                                <li class="emerg"><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+                            </ul>
+                        </div>
+                    </a>
 
 
                 </div>

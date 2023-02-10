@@ -11,6 +11,7 @@ use Illuminate\Console\View\Components\Alert as ComponentsAlert;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -56,5 +57,34 @@ class AuthController extends Controller
         $client = User::find(Auth::user()->id);
         $credit = Account::where(['user_id' => Auth::user()->id])->first()->credit;
         return view('frontend.profile', ['credit' => $credit]);
+    }
+    public function changePassword()
+    {
+        return view('frontend.change-password');
+    }
+    public function changePasswordSave(Request $request)
+    {
+
+        $this->validate($request, [
+            'current_password' => 'required|string',
+            'new_password' => 'required|confirmed|min:8|string'
+        ]);
+        $auth = Auth::user();
+
+        // The passwords matches
+        if (!Hash::check($request->get('current_password'), $auth->password)) {
+            return back()->with('error', "Current Password is Invalid");
+        }
+
+        // Current password and new password same
+        if (strcmp($request->get('current_password'), $request->new_password) == 0) {
+            return redirect()->back()->with("error", "New Password cannot be same as your current password.");
+        }
+
+        $user =  User::find($auth->id);
+        $user->password =  Hash::make($request->new_password);
+        $user->save();
+        $credit = Account::where(['user_id' => Auth::user()->id])->first()->credit;
+        return view('frontend.dashboard', ['credit' => $credit])->with('success', "Password Changed Successfully");
     }
 }

@@ -24,9 +24,9 @@ class ClientAuthenticate
                 return $next($request);
             }
             Alert::error('Failed!', 'You are not authorized to log in.');
-            return redirect()->route('client.login');
+            return redirect()->route('client.login')->with('error', 'You are not authorized to log in!');
         }
         Alert::error('Failed!', 'You are not registered.');
-        return redirect()->route('client.login');
+        return redirect()->route('client.login')->with('error', 'These credentials do not match our records.');
     }
 }

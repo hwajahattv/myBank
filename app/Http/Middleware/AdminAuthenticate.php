@@ -25,6 +25,6 @@ class AdminAuthenticate
             return $next($request);
         }
         Alert::error('Failed!', 'You are not authorized to log in.');
-        return redirect()->route('admin.login');
+        return redirect()->route('admin.login')->with('error', 'Only Admin login allowed!');
     }
 }

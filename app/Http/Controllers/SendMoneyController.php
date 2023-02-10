@@ -68,11 +68,13 @@ class SendMoneyController extends Controller
         $response = $this->transactionService->make($data, 3);
         if ($response['status'] == 'failed') {
             Alert::success('Failed!', $response['message']);
-        } else {
-            Alert::success('Successfull!', 'Money transferred successfully.');
+            $credit = Account::where(['user_id' => Auth::user()->id])->first()->credit;
+            return redirect()->route('client.dashboard')->with(['credit' => $credit, 'error' => $response['message']]);
         }
+        Alert::success('Successfull!', 'Money transferred successfully.');
+
         $credit = Account::where(['user_id' => Auth::user()->id])->first()->credit;
-        return redirect()->route('client.dashboard')->with(['credit' => $credit]);
+        return redirect()->route('client.dashboard')->with(['credit' => $credit, 'message' => 'Money transferred successfully.']);
     }
     public function payMobile(Request $request)
     {
@@ -102,12 +104,13 @@ class SendMoneyController extends Controller
         $response = $this->transactionService->make($data, 3);
         if ($response['status'] == 'failed') {
             Alert::success('Failed!', $response['message']);
-        } else {
-            Alert::success('Successfull!', 'Money transferred successfully.');
+            $credit = Account::where(['user_id' => Auth::user()->id])->first()->credit;
+            return redirect()->route('client.dashboard')->with(['credit' => $credit, 'error' => $response['message']]);
         }
+        Alert::success('Successfull!', 'Money transferred successfully.');
 
         $credit = Account::where(['user_id' => Auth::user()->id])->first()->credit;
-        return redirect()->route('client.dashboard')->with(['credit' => $credit]);
+        return redirect()->route('client.dashboard')->with(['credit' => $credit, 'message' => 'Money transferred successfully.']);
     }
     public function payAccount(Request $request)
     {
@@ -136,11 +139,12 @@ class SendMoneyController extends Controller
         $response = $this->transactionService->make($data, 3);
         if ($response['status'] == 'failed') {
             Alert::success('Failed!', $response['message']);
-        } else {
-            Alert::success('Successfull!', 'Money transferred successfully.');
+            $credit = Account::where(['user_id' => Auth::user()->id])->first()->credit;
+            return redirect()->route('client.dashboard')->with(['credit' => $credit, 'error' => $response['message']]);
         }
+        Alert::success('Successfull!', 'Money transferred successfully.');
 
         $credit = Account::where(['user_id' => Auth::user()->id])->first()->credit;
-        return redirect()->route('client.dashboard')->with(['credit' => $credit]);
+        return redirect()->route('client.dashboard')->with(['credit' => $credit, 'message' => 'Money transferred successfully.']);
     }
 }

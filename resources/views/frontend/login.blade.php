@@ -165,7 +165,24 @@
 <section class="main1">
     <div class="container">
         <div class="row">
+            @if(session()->has('message'))
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-success center-block">
+                    {{ session()->get('message') }}
+                </div>
+            </div>
+            @endif
+            @if(session()->has('error'))
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-danger center-block">
+                    {{ session()->get('error') }}
+                </div>
+            </div>
+            @endif
+
+
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
                 <form method="POST" class="form" action="{{ route('client.login.store') }}">
                     @csrf
                     <p>Email</p>

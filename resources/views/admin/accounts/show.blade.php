@@ -8,7 +8,7 @@
 
 <div class="main-panel">
     <div class="content-wrapper">
-        <div class="row purchace-popup">
+        {{-- <div class="row purchace-popup">
             <div class="col-12 stretch-card grid-margin">
                 <div class="card card-secondary">
                     <span class="card-body d-lg-flex align-items-center">
@@ -20,7 +20,7 @@
                     </span>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <div class="row">
             <div class="grid-margin stretch-card">
                 <div class="card mb-3" style="max-width: 540px;">

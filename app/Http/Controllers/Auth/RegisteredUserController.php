@@ -50,7 +50,7 @@ class RegisteredUserController extends Controller
             [
                 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
-                'phone_no' => ['required', 'unique:' . User::class],
+                'phone_no' => ['required', 'integer', 'digits_between: 1,15', 'unique:' . User::class],
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
             ],
             [
@@ -71,17 +71,17 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
-
+        // Auth::login($user);
+        // dd($user);
         // New account creation
         $lastopenedAccount = Account::orderBy('id', 'desc')->first();
         $newAccountNumber = $lastopenedAccount->account_number + 1;
 
         $acc = Account::create([
             'account_number' => $newAccountNumber,
-            'title' => Auth::user()->name,
+            'title' => $user->name,
             'date_opened' => now(),
-            'user_id' => Auth::user()->id,
+            'user_id' => $user->id,
             'status' => 'open',
             'type' => 'basic',
         ]);
@@ -91,8 +91,8 @@ class RegisteredUserController extends Controller
 
         // client email data
         $email_data = array(
-            'name' => Auth::user()->name,
-            'email' => Auth::user()->email,
+            'name' => $user->name,
+            'email' => $user->email,
             'account_number' => $acc->account_number,
             'title' => $acc->title,
             'admin_email_address' => 'amir@stallionecom.co.uk',
@@ -115,7 +115,7 @@ class RegisteredUserController extends Controller
         //         ->from('info@myBank.com', 'MyBank Admin');
         // });
         $response = $this->emailService->sendBasicEmail($email_data);
-        $adminEmailEesponse = $this->emailService->notifyAdminNewAccount($email_data);
+        // $adminEmailEesponse = $this->emailService->notifyAdminNewAccount($email_data);
         // if (!$response['status']) {
         //     return back()->with("failed", "Email not sent.");
         // } else if ($response['status'] == 'exception') {
@@ -129,7 +129,7 @@ class RegisteredUserController extends Controller
 
 
         //return redirect(RouteServiceProvider::HOME);
-        return redirect('/client/dashboard');
+        return redirect()->route('client.login')->with('message', 'User account created successfully!');;
     }
     // public function composeEmail($email_data)
     // {

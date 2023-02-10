@@ -114,57 +114,68 @@
 <section class="main1">
     <div class="container">
         <div class="row">
-            @if($errors->any())
-            <div class="alert-container">
-                <div class="alert alert-danger ">
-                    {{ implode('', $errors->all(':message')) }}
+            @if(session()->has('message'))
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-success center-block">
+                    {{ session()->get('message') }}
                 </div>
             </div>
             @endif
 
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <form class="form" method="POST" action="{{ route('client.register.post') }}">
-                    @csrf
-                    <p>Full name</p>
-                    <input type="text" name="name" placeholder="Jhon doe" class="place1 text-sm" required>
-                    <div class="alert-container">
-                        @error('name') <div class="alert alert-danger ">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <p>Email</p>
-                    <input type="email" name="email" placeholder="test@example.com" class="place1" required>
-                    <div class="alert-container">
-                        @error('email') <div class="alert alert-danger ">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <p>Mobile no.</p>
-                    <input type="number" name="phone_no" placeholder="Enter only digits" class="place1" required>
-                    <div class="alert-container">
-                        @error('phone_no') <div class="alert alert-danger ">{{ $message }}</div>
-
-                        @enderror
-                    </div>
-                    <p>Password</p>
-                    <input type="password" name="password" class="place1" placeholder="Minimum 8 characters." required>
-                    <div class="alert-container">
-                        @error('password')
-                        <div class="alert alert-danger ">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <p>Repeat Password</p>
-                    <input type="password" name="password_confirmation" placeholder="Minimum 8 characters." class="place1" required>
-                    <div class="alert-container">
-                        @error('password_confirmation') <div class="alert alert-danger ">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="d-grid gap-2 col-6 mx-auto">
-                        <button class="btn2 " type="submit">Save</button>
-                    </div>
-                </form>
-                <div class="sign_in">
-                    <p>Do you already have a MyBank account? <a href="{{route('client.login')}}"> <span class="spainn">Sign in here</span></a> </p>
-                </div>
-            </div>
+            {{-- @if($errors->any())
+            <div class="d-flex justify-content-center">
+                <div class="alert-container">
+                    <div class="alert alert-danger ">
+                        {{ implode('', $errors->all(':message')) }}
         </div>
     </div>
-</section>@endsection
+    </div>
+    @endif --}}
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <form class="form" method="POST" action="{{ route('client.register.post') }}">
+            @csrf
+            <p>Full name</p>
+            <input type="text" name="name" placeholder="Jhon doe" class="place1 text-sm" required>
+            <div class="alert-container">
+                @error('name') <div class="alert alert-danger ">{{ $message }}</div>
+                @enderror
+            </div>
+            <p>Email</p>
+            <input type="email" name="email" placeholder="test@example.com" class="place1" required>
+            <div class="alert-container">
+                @error('email') <div class="alert alert-danger ">{{ $message }}</div>
+                @enderror
+            </div>
+            <p>Mobile no.</p>
+            <input type="number" name="phone_no" placeholder="Enter only digits" class="place1" required>
+            <div class="alert-container">
+                @error('phone_no') <div class="alert alert-danger ">{{ $message }}</div>
+
+                @enderror
+            </div>
+            <p>Password</p>
+            <input type="password" name="password" class="place1" placeholder="Minimum 8 characters." required>
+            <div class="alert-container">
+                @error('password')
+                <div class="alert alert-danger ">{{ $message }}</div>
+                @enderror
+            </div>
+            <p>Repeat Password</p>
+            <input type="password" name="password_confirmation" placeholder="Minimum 8 characters." class="place1" required>
+            <div class="alert-container">
+                @error('password_confirmation') <div class="alert alert-danger ">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <button class="btn2 " type="submit">Save</button>
+            </div>
+        </form>
+        <div class="sign_in">
+            <p>Do you already have a MyBank account? <a href="{{route('client.login')}}"> <span class="spainn">Sign in here</span></a> </p>
+        </div>
+    </div>
+    </div>
+    </div>
+</section>
+@endsection

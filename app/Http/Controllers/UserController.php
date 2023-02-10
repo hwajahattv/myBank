@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +20,8 @@ class UserController extends Controller
             ->select('u.name as fullName', 'u.id', 'u.email', 'r.name as role', 'phone_no')
             ->leftJoin('roles as r', 'u.role_id', '=', 'r.id')
             ->get();
-        return view('admin.users.allUsers', ['users' => $users]);
+        $roles = Role::pluck('name', 'id');
+        return view('admin.users.allUsers', ['users' => $users, 'roles' => $roles]);
     }
 
     /**
@@ -91,5 +93,19 @@ class UserController extends Controller
             return response(['success' => "User deleted Successfully"]);
         }
         return response(['error' => "User not deleted."]);
+    }
+
+    public function updateRole(Request $request, $id)
+    {
+        $request->validate([
+            'role' => 'required|exists:roles,id'
+        ]);
+        $status = User::where(['id' => $id])->update(['role_id' => $request['role']]);
+        // dd($status);
+        if ($status == 1) {
+            return redirect()->back()->with('message', 'User role changed successfully!');
+        } else {
+            return redirect()->back()->with('error', 'Error. User role not changed.');
+        }
     }
 }

@@ -151,9 +151,11 @@ class AccountController extends Controller
         ]);
 
         $response = $this->transactionService->make($request, 2);
-
+        if ($response['status'] != 'success') {
+            return redirect()->route('client.dashboard')->with('error', 'Error occured!');
+        }
         Alert::success('Successfull!', 'Money is added to your account successfully.');
 
-        return redirect()->route('client.dashboard');
+        return redirect()->route('client.dashboard')->with('message', 'Money added to your account successfully!');
     }
 }

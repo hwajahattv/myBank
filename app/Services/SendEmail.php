@@ -240,8 +240,8 @@ MyBank Team.
 
 <h1>Forget Password Email</h1>
    
-You can reset password from bellow link:
-<a href=\"amazon-consultant.co.uk/banking/reset-password/".$email_data['token'].">Reset Password</a>
+<span>You can reset password from bellow link:</span>
+<a href=\"amazon-consultant.co.uk/banking/reset/password/" . $email_data['token'] . ">Reset Password</a>
 <br>
 <br>
 

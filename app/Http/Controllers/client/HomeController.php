@@ -64,6 +64,26 @@ class HomeController extends Controller
             $transaction->Date = date('l jS \of F Y h:i:s A', $date);
         }
         // dd($transactions_credited);
-        return view('frontend.notifications', ['transactions' => $transactions, 'duration'=>$duration]);
+        return view('frontend.notifications', ['transactions' => $transactions, 'duration' => $duration]);
+    }
+    public function portfolio()
+    {
+        return view('frontend.portfolio');
+    }
+    public function account()
+    {
+        $user = DB::table('users as u')
+            ->select('u.id as id', 'u.name', 'u.email', 'a.account_number', 'a.status', 'a.type', 'a.credit')
+            ->leftJoin('accounts as a', 'u.id', '=', 'a.user_id')->where('u.id', Auth::user()->id)->get();
+        // dd($user);
+        return view('frontend.account', ['user' => $user[0]]);
+    }
+    public function reward()
+    {
+        return view('frontend.reward');
+    }
+    public function save()
+    {
+        return view('frontend.save.index');
     }
 }

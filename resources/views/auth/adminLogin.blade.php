@@ -8,7 +8,11 @@
             <div class="content-wrapper d-flex align-items-center auth">
                 <div class="row flex-grow">
                     <div class="col-lg-4 mx-auto">
-                        <div class="auth-form-light text-left p-5">
+                        <div class="auth-form-light  p-5">
+                            <div class="brand-logo d-flex justify-content-center">
+                                <img src="{{asset('/public/assets/admin/images/logo.png')}}">
+                            </div>
+                            <h4 class="text-center">Administrator login</h4>
                             @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>
@@ -18,12 +22,14 @@
                                 </ul>
                             </div>
                             @endif
-
-                            <div class="brand-logo d-flex justify-content-center">
-                                <img src="{{asset('/public/assets/admin/images/logo.png')}}">
+                            @if(session()->has('error'))
+                            <div class="d-flex justify-content-center">
+                                <div class="alert alert-danger center-block">
+                                    {{ session()->get('error') }}
+                                </div>
                             </div>
-                            <h4 class="text-center">Administrator login</h4>
-                            <h6 class="font-weight-light">Sign in</h6>
+                            @endif
+                            <h6 class="font-weight-light text-center">Sign in</h6>
                             <form class="pt-3" method="POST" action="{{ route('admin.login.store') }}">
                                 @csrf
                                 <div class="form-group">

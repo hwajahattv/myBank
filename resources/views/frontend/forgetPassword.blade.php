@@ -63,6 +63,15 @@
         color: white;
     }
 
+    .form p {
+        color: white;
+    }
+
+    .form {
+        background-color: #000056;
+        text-align: center;
+    }
+
     .btn2 {
         padding: 5px;
         margin-top: 20px;
@@ -169,43 +178,40 @@
                 <div>
                     <span class="text-white text-center mb-4"> Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.</span>
                 </div>
-
-                <form method="POST" action="{{ route('password.store') }}">
-                    @csrf
-
-                    <!-- Password Reset Token -->
-                    <input type="hidden" name="token" value="{{ $request->route('token') }}">
-
-                    <!-- Email Address -->
-                    <div>
-                        <x-input-label for="email" :value="__('Email')" />
-                        <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus />
-                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                <div class="text-center">
+                    @if(session()->has('message'))
+                    <div class="d-flex justify-content-center">
+                        <div class="alert alert-success center-block">
+                            {{ session()->get('message') }}
+                        </div>
                     </div>
+                    @endif
 
-                    <!-- Password -->
-                    <div class="mt-4">
-                        <x-input-label for="password" :value="__('Password')" />
-                        <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required />
-                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
-                    </div>
+                    <form method="POST" class="form" action="{{ route('password.email.send') }}">
+                        @csrf
+                        <!-- Password Reset Token -->
+                        {{-- <input type="hidden" name="token" value="{{ $request->route('token') }}"> --}}
 
-                    <!-- Confirm Password -->
-                    <div class="mt-4">
-                        <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+                        <!-- Email Address -->
+                        <p>Email</p>
+                        <input type="email" name="email" placeholder="test@example.com" class="place1" required>
+                        <div class="alert-container">
+                            @error('email') <div class="alert alert-danger ">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="flex items-center justify-end mt-4">
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <button class="btn2 " type="submit">Send reset link</button>
+                            </div>
 
-                        <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required />
+                        </div>
+                    </form>
+                </div>
+                {{-- @if(session()->has('message'))
 
-                        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-                    </div>
+                <a href="{{url('reset-password/'.session()->get('message')['token'])}}">reset here</a>
 
-                    <div class="flex items-center justify-end mt-4">
-                        <x-primary-button>
-                            {{ __('Reset Password') }}
-                        </x-primary-button>
-                    </div>
-                </form>
-
+                @endif --}}
             </div>
         </div>
     </div>

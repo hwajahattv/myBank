@@ -259,6 +259,33 @@
                 </li>
                 <li class="nav-item">
 
+                    <a class="nav-link" data-toggle="collapse" href="#investment-section" aria-expanded="false" aria-controls="ui-basic">
+
+                        <span class="menu-title">Investments</span>
+
+                        <i class="icon-layers menu-icon"></i>
+                    </a>
+                    <div class="collapse" id="investment-section">
+
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="{{route('investment.index')}}">All investments</a></li>
+
+
+                            {{-- <!-- Modal trigger button -->
+                            <li class="nav-item"> <a class="nav-link" data-bs-toggle="modal" data-bs-target="#modalId">
+                                    Find a transaction details
+                                </a></li> --}}
+                        </ul>
+                    </div>
+                    {{-- <div class="collapse" id="ui-basic">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+                            </ul>
+                        </div> --}}
+                </li>
+                <li class="nav-item">
+
                     <a class="nav-link" data-toggle="collapse" href="#users-section" aria-expanded="false" aria-controls="ui-basic">
 
                         <span class="menu-title">Users</span>

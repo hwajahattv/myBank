@@ -18,14 +18,13 @@ class UserAccess
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->user()->role_id == 1) {
-            return $next($request);
+        if (auth()->user()->role_id == 1) //if role is admin
+        {
+            return $next($request);//it will procedd the login
         }
+        // in other case it will block the request and send the error message
         Alert::error('Error!', 'You do not have access to this page.');
+        return redirect()->route('client.dashboard')->with('error', 'You are not authenticated to visit Admin pages!');
 
-        return redirect()->back();
-        /* return response()->view('errors.check-permission'); */
-
-        return $next($request);
     }
 }
