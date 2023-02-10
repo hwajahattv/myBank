@@ -56,6 +56,14 @@ Route::middleware('auth')->group(function () {
 
 // admin routes
 Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login');
+Route::get('/admin/login/google', [AdminController::class, 'loginGoogle'])->name('login.google');
+Route::get('/admin/google/callback', [AdminController::class, 'handleGoogleCallback']);
+Route::get('/admin/login/facebook', [AdminController::class, 'loginFacebook'])->name('login.facebook');
+Route::get('/admin/facebook/callback', [AdminController::class, 'handleFacebookCallback']);
+Route::get('/admin/login/github', [AdminController::class, 'loginGithub'])->name('login.github');
+Route::get('/admin/github/callback', [AdminController::class, 'handleGithubCallback']);
+
+
 Route::get('/admin', function () {
     return redirect()->route('admin.login');
 });

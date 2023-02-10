@@ -68,9 +68,12 @@
                                         <i class="icon-social-facebook mr-2"></i>Connect using facebook </button>
                                 </div> --}}
                                 <div class="text-center mt-4 font-weight-light"> Don't have an account? <a href="{{ route('register') }}" class="text-primary">Create</a>
-
                                 </div>
-
+                                {{-- <div class="form-group row">
+                                    <a href="{{route('login.google')}}" class="btn btn-danger btn-block btn-sm">Login with <i class="icon-social-google"></i></a>
+                                    <a href="{{route('login.facebook')}}" class="btn btn-primary btn-block btn-sm">Login with <i class="icon-social-facebook"></i></a>
+                                    <a href="{{route('login.github')}}" class="btn btn-dark btn-block btn-sm">Login with <i class="icon-social-github"></i></a>
+                                </div> --}}
                             </form>
                         </div>
                     </div>
